@@ -1,0 +1,7 @@
+background: #eeeeee
+wrapper-background: #ffffff border-radius: 3px, showdow right bottom
+Login-button color: #1e88e5 border-radius: 3px, showdow right bottom
+"Sign In": #000000 65% opacity
+"Wrong email or password": #e60606 border-radius: 3px
+"Email Address" and "Password": #cacaca
+"Login": #ffffff
