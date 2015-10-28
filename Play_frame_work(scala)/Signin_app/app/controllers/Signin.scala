@@ -18,7 +18,7 @@ class Signin extends Controller {
     if(checkUserData(email, password)){
       Redirect(routes.Hello.hello)
     }else{
-      Ok(views.html.signin("Sai mat khau hoac email"))
+      Ok(views.html.signin("Wrong password or email"))
     }
   }
 
