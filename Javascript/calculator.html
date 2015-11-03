@@ -1,0 +1,60 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<input type="number" id="input">
+	<div id="keyboard"></div>
+	<button id="reset">Reset</button>
+</body>
+<script>
+
+$(document).ready(function(){
+	(function(){
+		
+		var Calculator = {
+			sum: 0,
+			init: function(){
+				this.selectCache();
+				this.render();
+				this.bindEvents();	
+			},
+			selectCache: function(){
+				this.$input = $("#input");
+				this.$keyboard = $("#keyboard");
+				this.$resetButton = $("#reset");
+			},
+			render: function(){
+				for(var i=1; i<=9; i++){
+					this.$keyboard.append("<input class='.item' type='button' value='"+ i +"'> ");
+				}
+			},
+			setSum: function(){
+				this.$input.val(this.sum);
+			},
+			addSum: function(val){
+				this.sum += val;
+				this.setSum();
+			},
+			resetSum: function(){
+				this.sum = 0;
+				this.setSum();
+			},
+			bindEvents: function(){
+				var self = this;
+				this.$keyboard.delegate("input", "click", function(){
+					var val = parseInt($(this).val());
+					self.addSum(val);
+				});
+				this.$resetButton.on("click", function(){
+					self.resetSum();
+				})
+			}
+		}
+		Calculator.init();
+		
+	})()
+});
+
+</script>
+</html>
