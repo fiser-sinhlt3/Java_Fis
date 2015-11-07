@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="back">
+		</div>			
+	</div>	
+</body>
+
+<script>
+$(function(){
+
+	var temPlate = '<div class="bird" x="0" y="0"><img src="bird.png" width="100px" height="100px"></div>';
+	var stageHeight = 400;
+	var numBerOfBird = 5;
+
+	$container = $(".container");
+	$bg = $(".back");
+	
+	//sinh ra chim
+	for(var i=0; i<numBerOfBird; i++){
+		$container.append(temPlate);
+	}
+	
+	//chon tat ca chim
+	$birds = $(".bird");
+
+	//sap xep cho chim
+	$birds.each(function(index){
+		$(this).css("top", stageHeight - "100");
+		$(this).css("left", index*200);
+		$(this).attr("y", stageHeight - 100);
+		$(this).attr("flying", false);
+	});
+
+	//cho click chim
+	$container.delegate(".bird", "click", function(){
+		moveBird($(this), -100);
+		$(this).attr("flying", true);
+	});
+
+	function moveBird(bird, pos){
+		var newY = parseInt(bird.attr("y")) + pos;
+		bird.css("top", newY + "px");
+		bird.attr("y", newY);		
+	}
+
+	function checkDie(bird){
+		var posY = parseInt(bird.attr("y"));
+		if(posY >= 300){	
+			bird.attr("flying", false);
+			bird.find("img").attr("src", "dead_bird.png");
+		}
+	}
+
+	function checkHigher(bird){
+		var posY = parseInt(bird.attr("y"));
+		if (posY < 0){
+			bird.css("top", "0");
+			bird.attr("y", 0);
+		}
+	}
+
+
+	function moveBackGround(pos){
+		$bg.css("background-position", -pos + "px");	
+	}
+
+	var current = 1;
+	setInterval(function(){			
+		$birds.each(function(index){
+			if($(this).attr("flying") != "false"){
+				checkDie($(this));
+				checkHigher($(this));
+				moveBird($(this), 1);
+			}	
+		});
+
+		if(current < 450)
+			moveBackGround(++current);
+			
+		else current = 0;
+
+	}, 15);
+
+});
+
+</script>
+</html>
